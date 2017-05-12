@@ -19,7 +19,5 @@ var pathToPrivateKey = path.resolve(__dirname, 'support', 'jwt.pem.base64');
 var privateKey = fs.readFileSync(pathToPrivateKey).toString();
 privateKey = new Buffer(privateKey, 'base64').toString('ascii');
 
-console.log(privateKey);
-
 process.env.TEST_PRIVATE_KEY = privateKey;
 process.env.TEST_BEARER_TOKEN = jwts.signToken(token, privateKey, '1h');
