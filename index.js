@@ -31,7 +31,7 @@ var protector = function(req, res, next) {
     if (decoded.iss !== expectedIssuer) {
       return denyAccess(res, 'Invalid Issuer');  
     } else {
-      req.headers['x-api-cliend-id'] = decoded.sub;
+      req.headers['x-api-client-id'] = decoded.sub;
       return new Promise((resolve, reject) => {
         next();
       });
@@ -105,9 +105,13 @@ function denyAccess(res, reason = '') {
   res.status(403).json(out);
 }
 
+<<<<<<< HEAD
 // All of these vars are exposed for unit-testing purposes
 exports.parseToken   = parseToken;
 exports.verifyToken  = verifyToken;
 exports.signToken    = signToken;
 exports.getPublicKey = getPublicKey;
 exports.rootDir      = __dirname;
+=======
+exports.parseToken = parseToken;
+>>>>>>> master
