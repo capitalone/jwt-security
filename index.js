@@ -105,13 +105,9 @@ function denyAccess(res, reason = '') {
   res.status(403).json(out);
 }
 
-<<<<<<< HEAD
 // All of these vars are exposed for unit-testing purposes
 exports.parseToken   = parseToken;
 exports.verifyToken  = verifyToken;
 exports.signToken    = signToken;
 exports.getPublicKey = getPublicKey;
 exports.rootDir      = __dirname;
-=======
-exports.parseToken = parseToken;
->>>>>>> master
