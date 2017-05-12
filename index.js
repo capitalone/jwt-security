@@ -31,7 +31,7 @@ var protector = function(req, res, next) {
     if (decoded.iss !== expectedIssuer) {
       return denyAccess(res, 'Invalid Issuer');  
     } else {
-      req.headers['x-api-cliend-id'] = decoded.sub;
+      req.headers['x-api-client-id'] = decoded.sub;
       return new Promise((resolve, reject) => {
         next();
       });
