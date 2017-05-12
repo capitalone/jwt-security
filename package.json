@@ -1,0 +1,37 @@
+{
+  "name": "jwt-security",
+  "version": "1.0.0",
+  "description": "JWT-based security middleware for Express",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.kdc.capitalone.com:digital-trust/jwt-security.git"
+  },
+  "author": "Irakli Nadareishvili",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=6.2"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "config": "*",
+    "express": "^4.11.0",
+    "jsonwebtoken": "^7.4.0",
+    "lodash": "^4.3.0",
+    "metalogger": "*",
+    "yaml": "*"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.2",
+    "jshint": "^2.5.x",
+    "mocha": "^3.0.0",
+    "should": "^11.0.0",
+    "sinon": "^2.1.0",
+    "supertest": "^3.0.0"
+  },
+  "scripts": {
+    "test": "mocha --bail test/",
+    "test-cov": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --reporter dot test/"
+  }
+}
