@@ -27,7 +27,7 @@ var protector = function(req, res, next) {
     return denyAccess(res, 'Bearer token missing or invalid in the Authorization header');
   }
 
-  decodeToken(token).then((decoded) => {
+  verifyToken(token).then((decoded) => {
     if (decoded.iss !== expectedIssuer) {
       return denyAccess(res, 'Invalid Issuer');  
     } else {
@@ -52,11 +52,12 @@ function parseToken (authHeader) {
   return false;
 }
 
-function getPublicKey() {
+function getPublicKey(pathToPubKey) {
 
   var appDir = path.dirname(require.main.filename);
+  pathToPubKey = pathToPubKey || path.resolve(appDir, 'config', 'jwt.pem.pub');
+
   return new Promise((resolve, reject) => {
-    var pathToPubKey = path.resolve(appDir, 'config', 'jwt.pem.pub');
     fs.readFile(pathToPubKey, (err, data) => {
       if (err) {
         reject(err);
@@ -67,7 +68,14 @@ function getPublicKey() {
   });
 }
 
-function decodeToken(token) {
+function signToken(token, privateKey, duration) {
+  var encoded;
+  encoded = jwt.sign(token, privateKey, {expiresIn: duration, 
+                                         algorithm: 'RS256'});
+  return encoded;
+}
+
+function verifyToken(token) {
 
   var opts = {
     algorithms: ['RS256']
@@ -97,4 +105,9 @@ function denyAccess(res, reason = '') {
   res.status(403).json(out);
 }
 
-exports.parseToken = parseToken;
+// All of these vars are exposed for unit-testing purposes
+exports.parseToken   = parseToken;
+exports.verifyToken  = verifyToken;
+exports.signToken    = signToken;
+exports.getPublicKey = getPublicKey;
+exports.rootDir      = __dirname;

@@ -1,0 +1,4 @@
+--require should
+--require test/env
+--reporter spec
+--check-leaks

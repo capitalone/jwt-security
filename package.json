@@ -28,10 +28,12 @@
     "mocha": "^3.0.0",
     "should": "^11.0.0",
     "sinon": "^2.1.0",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "eslint": "^3.19.0"
   },
   "scripts": {
+    "pretest": "node_modules/eslint/bin/eslint.js index.js test/ ",
     "test": "mocha --bail test/",
-    "test-cov": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --reporter dot test/"
+    "test-cov": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --reporter dot index.js test/"
   }
 }
