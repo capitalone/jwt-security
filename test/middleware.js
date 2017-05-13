@@ -54,36 +54,6 @@ describe('JWT Middleware Tests', () => {
       .end(done);
   });
 
-  it.skip('Missing Public Key File Leads to HTTP 500', (done) => {
-
-/*
-    var jwts_proxy = proxyquire('../lib/jwt-security.js', {
-      'getPublicKey': function () {
-        return new Promise(function(resolve, reject) {
-          log.info("and this did happen");
-          reject('could not read from file');
-        });
-      }
-    });
-*/
-
-    var stub = this.sinonbox.stub(jwts, "getPublicKey");
-    //log.info("stub", stub);
-    stub.callsFake(() => {
-      log.info("aaaaaaaaaaa");
-      return new Promise((resolve, reject) => reject('error'));
-    });
-
-    request(app)
-      .post('/hello')
-      .set('Authorization', `Bearer ${process.env.TEST_BEARER_TOKEN}`)
-      .expect((response) => {
-        log.info("response", response.body);
-      })
-      .expect(500)
-      .end(done);
-  });
-
   it('Valid JWT token passes through - 200', (done) => {
     request(app)
       .post('/hello')
@@ -99,5 +69,60 @@ describe('JWT Middleware Tests', () => {
       .expect(202)
       .end(done);
   });
+
+});
+
+describe.only(('Missing Public Key File'), () => {
+
+  it('Missing Public Key File Leads to HTTP 500', (done) => {
+
+    process.env.NODE_JWT_SEC_PUB_KEY_PATH="/tmp/pub.pem"; // doesn't exist
+    var app = express();
+    app = appConfig.setup(app);
+
+    request(app)
+      .post('/hello')
+      .set('Authorization', `Bearer ${process.env.TEST_BEARER_TOKEN}`)
+      .expect((response) => {
+        var resp = response.body.description;
+        assert.equal(resp, "ACCESS DENIED: Authentication Malfunction");
+        process.env.NODE_JWT_SEC_PUB_KEY_PATH=""; // reset 
+      })
+      .expect(500)
+      .end(done);
+  });
+
+  // This is important to prevent constant reading and parsing of missing
+  // public key file, in case of misconfigured service
+  it('Don\'t try to read missing pub key file on subsequent requests', (done) => {
+
+    process.env.NODE_JWT_SEC_PUB_KEY_PATH="/tmp/pub.pem"; // doesn't exist
+    var app = express();
+    app = appConfig.setup(app);
+
+    request(app)
+      .post('/hello')
+      .set('Authorization', `Bearer ${process.env.TEST_BEARER_TOKEN}`)
+      .expect((response) => {
+        var resp = response.body.description;
+        assert.equal(resp, "ACCESS DENIED: Authentication Malfunction");
+        process.env.NODE_JWT_SEC_PUB_KEY_PATH=""; // reset 
+      })
+      .expect(500).then(() => {
+        request(app)
+          .post('/hello')
+          .set('Authorization', `Bearer ${process.env.TEST_BEARER_TOKEN}`)
+          .expect((response) => {
+            var resp = response.body.description;
+            // note that second time error message is slightly different
+            // ("malfunction*ed*") allowing us subtle hint that different branch
+            // of code is catching this
+            assert.equal(resp, "ACCESS DENIED: Authentication Malfunctioned");
+            process.env.NODE_JWT_SEC_PUB_KEY_PATH=""; // reset 
+          })
+          .expect(500)
+          .end(done);
+      });
+  });  
 
 });
