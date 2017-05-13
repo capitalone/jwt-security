@@ -8,9 +8,14 @@ const expectedIssuer = 'https://api.capitalone.com/';
 
 let publicKey;
 
-var exports = module.exports = function(options) {
-  getPublicKey().then((pKey) => {
+var exports = module.exports = function(opts) {
+
+  let pathToPubKey = opts.pathToPubKey || '';
+  log.info('path to pub key', pathToPubKey);
+  getPublicKey(pathToPubKey).then((pKey) => {
     publicKey = pKey;
+  }).catch((err) => {
+    denyAccess('Invalid Bearer Token');
   });
 
   return protector;
@@ -35,11 +40,9 @@ var protector = function(req, res, next) {
       return new Promise((resolve, reject) => {
         next();
       });
-      
     }
   }).catch((err) => {
-    log.error(err);
-    return denyAccess(res, 'Malformed or invalid Bearer token');
+    return denyAccess(res, 'Malformed or invalid Bearer token', err);
   });
 };
 
