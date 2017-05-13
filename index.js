@@ -11,7 +11,6 @@ let publicKey;
 var exports = module.exports = function(opts) {
 
   let pathToPubKey = opts.pathToPubKey || '';
-  log.info('path to pub key', pathToPubKey);
   getPublicKey(pathToPubKey).then((pKey) => {
     publicKey = pKey;
   }).catch((err) => {
