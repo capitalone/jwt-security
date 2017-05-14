@@ -4,6 +4,7 @@ const jwts = require('../index');
 const fs   = require('fs');
 
 process.env.NODE_ENV = 'test';
+process.env.NODE_JWT_SEC_EXPECTED_ISS = 'https://api.capitalone.com/';
 
 var token = {
   "iss": "https://api.capitalone.com/",
