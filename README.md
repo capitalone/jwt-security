@@ -1,6 +1,7 @@
 # JWT Security
 
-JWT-based inter-service security. Express.js middleware
+JSON Web Tokens (JWT)-based security middleware for
+[Express.js](https://expressjs.com/)
 
 ## Installation
 
@@ -12,8 +13,9 @@ In package.json:
 
 ## Using:
 
-Wherever you load your middleware (e.g. appConfig.js for your NodeBootstrap), make
-sure to insert this, **before** the wiring-up of route handlers:
+Wherever you load your middleware (e.g. appConfig.js for your
+[NodeBootstrap](http://nodebootstrap.io)), make sure to insert this, **before**
+the wiring-up of route handlers:
 
 ```
 app.use(require('jwt-security')(opts));
