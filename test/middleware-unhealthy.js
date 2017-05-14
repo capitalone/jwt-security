@@ -62,8 +62,7 @@ describe('JWT Middleware (Unhealthy) Tests', () => {
             .expect(500)
             .end(done);
         });
-    });  
-
+    });
   });
 });
 
