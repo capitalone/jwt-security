@@ -2,7 +2,7 @@
 
 const assert = require("chai").assert;
 const path   = require('path');
-const jwts   = require("../index");
+const jwts   = require("../lib/jwt-security");
 
 describe('parseToken ', () => {
   it('Invalid tokens fail', () => {
@@ -41,7 +41,7 @@ describe('getPublicKey', () => {
 
   });
 
-  it('getPublicKey(path)', () => {
+  it('Successful retrival using getPublicKey(path) syntax', () => {
 
     const pathToPubKey = path.resolve(jwts.rootDir, 'test', 'support', 'jwt.pem.pub');
 

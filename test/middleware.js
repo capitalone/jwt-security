@@ -1,32 +1,75 @@
 const request     = require('supertest');
 const assert      = require('chai').assert;
+//const proxyquire  = require('proxyquire');
 const sinon       = require('sinon');
 const express     = require('express');
 const log         = require('metalogger')();
+const path        = require('path');
 const Promise     = require('bluebird');
-const jwts        = require('../index');
 
-describe('permissions endpoint', () => {
-  var app;
+const jwts        = require('../lib/jwt-security');
+const appConfig = require("./support/appConfig.js");
 
-  beforeEach((done) => {
-    app = express();
+describe('JWT Middleware Tests', () => {
+  describe('Public Key File Present and Good', () =>{
+    let app;
 
-    app.listen(3456, function () {
-      console.log('test app listening on port 3000!');
-      done();
+    beforeEach(() => {
+      app = express();
+      app = appConfig.setup(app);
+      this.sinonbox = sinon.sandbox.create();
     });
 
-    app.use(jwts());
-    app.get('/hello', (req, res) => {
-      res.status(200).json({status: "ok"});
+    afterEach(() => {
+      this.sinonbox.restore();
     });
 
-    this.sinonbox = sinon.sandbox.create();
-  });
+    it('Invalid JWT token returns 403', (done) => {
+      request(app)
+        .post('/hello')
+        .set('Authorization', 'Bearer foo')
+        .expect(403)
+        .end(done);
+    });
 
-  afterEach(() => {
-    this.sinonbox.restore();
-  });
+    it('Valid JWT token with invalid ISS still returns 403', (done) => {
+      request(app)
+        .post('/hello')
+        .set('Authorization', `Bearer ${process.env.TEST_BEARER_TOKEN_INVALID_ISS}`)
+        .expect(403)
+        .end(done);
+    });
+    
+    it('Missing Authorization Header returns 403', (done) => {
+      request(app)
+        .post('/hello')
+        .expect(403)
+        .end(done);
+    });
 
+    it('Missing Bearer Token returns 403', (done) => {
+      request(app)
+        .post('/hello')
+        .set('Authorization', 'just foo')
+        .expect(403)
+        .end(done);
+    });
+
+    it('Valid JWT token passes through - 200', (done) => {
+      request(app)
+        .post('/hello')
+        .set('Authorization', `Bearer ${process.env.TEST_BEARER_TOKEN}`)
+        .expect(200)
+        .end(done);
+    });
+
+    it('Valid JWT token passes through - 202 Accepted', (done) => {
+      request(app)
+        .post('/hello202')
+        .set('Authorization', `Bearer ${process.env.TEST_BEARER_TOKEN}`)
+        .expect(202)
+        .end(done);
+    });
+  });
 });
+
