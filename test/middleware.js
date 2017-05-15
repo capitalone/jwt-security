@@ -35,7 +35,7 @@ describe('JWT Middleware Tests', () => {
     it('Valid JWT token with invalid ISS still returns 403', (done) => {
       request(app)
         .post('/hello')
-        .set('Authorization', `Bearer ${process.env.TEST_BEARET_TOKEN_INVALID_ISS}`)
+        .set('Authorization', `Bearer ${process.env.TEST_BEARER_TOKEN_INVALID_ISS}`)
         .expect(403)
         .end(done);
     });

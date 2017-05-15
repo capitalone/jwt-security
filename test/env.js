@@ -32,4 +32,4 @@ privateKey = new Buffer(privateKey, 'base64').toString('ascii');
 
 process.env.TEST_PRIVATE_KEY = privateKey;
 process.env.TEST_BEARER_TOKEN = jwts.signToken(token, privateKey, '1h');
-process.env.TEST_BEARET_TOKEN_INVALID_ISS = jwts.signToken(invalidISSToken, privateKey, '1h');
+process.env.TEST_BEARER_TOKEN_INVALID_ISS = jwts.signToken(invalidISSToken, privateKey, '1h');
