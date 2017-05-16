@@ -40,5 +40,5 @@ JWT-Security takes into account following environmental variables:
 
 - `NODE_JWT_SEC_PUB_KEY_PATH` - absolute path to public key file the middleware
   should be using.
-- `NODE_JWT_SEC_EXPECTED_ISS` - expected [iss](https://tools.ietf.org/html/rfc7519#section-4.1.1) claim in JWT. If set, JWT
+- `NODE_JWT_SEC_EXPECTED_ISS` - expected `iss` ([RFC7519](https://tools.ietf.org/html/rfc7519#section-4.1.1)) claim in JWT. If set, JWT
   security will validate the claim to equal this value.
