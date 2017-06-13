@@ -7,7 +7,7 @@ JSON Web Tokens (JWT)-based security middleware for
 
 ## Motivation 
 
-Outer (public) API perimeters of systems are typically secured using API Gateways. When we build a system, internally, using a microservice architecture, however, it is important to also secure communication between microservices, even if they are "hidden" from the outside world, behind the Gateway. An effective, and increasingly popular, solution to securing such communications is: using JSON Web Tokens. It's gained popularity due to its decentralized, stateless and assymetric approach that makes such solution both scalable, performant as well as secure. You can read more about it at: http://www.freshblurbs.com/blog/2017/04/09/json-web-tokens-oauth2.html
+Outer (public) API perimeters of systems are typically secured using API Gateways. When we build a system, internally, using a microservice architecture, however, it is important to also secure communication between microservices, even if they are "hidden" from the outside world, behind the Gateway. An effective, and increasingly popular, solution to securing such communications is: using JSON Web Tokens. It's gained popularity due to its decentralized, stateless and asymmetric approach that makes such solution both scalable, performant as well as secure. You can read more about it at: http://www.freshblurbs.com/blog/2017/04/09/json-web-tokens-oauth2.html
 
 ## Installation
 
