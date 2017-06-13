@@ -46,3 +46,35 @@ JWT-Security takes into account following environmental variables:
   should be using.
 - `NODE_JWT_SEC_EXPECTED_ISS` - expected `iss` ([RFC7519](https://tools.ietf.org/html/rfc7519#section-4.1.1)) claim in JWT. If set, JWT
   security will validate the claim to equal this value.
+
+## Contributors
+
+We welcome your interest in Capital One’s Open Source Projects (the
+“Project”). Any Contributor to the project must accept and sign a CLA
+indicating agreement to the license terms. Except for the license
+granted in this CLA to Capital One and to recipients of software
+distributed by Capital One, you reserve all right, title, and interest
+in and to your contributions; this CLA does not impact your rights to
+use your own contributions for any other purpose.
+
+[Link to CLA](https://docs.google.com/forms/d/19LpBBjykHPox18vrZvBbZUcK6gQTj7qv1O5hCduAZFU/viewform)
+
+This project adheres to the
+[Open Source Code of Conduct](http://www.capitalone.io/codeofconduct/). By
+participating, you are expected to honor this code.
+
+
+## License
+
+Copyright 2017 Capital One Services, LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.
