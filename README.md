@@ -2,7 +2,7 @@
 
 # JWT Security
 
-JSON Web Tokens (JWT)-based security middleware for
+JSON Web Tokens (JWT)-based security middleware for microservices implemented in Node/
 [Express.js](https://expressjs.com/)
 
 ## Motivation 
