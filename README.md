@@ -14,7 +14,7 @@ Public API perimeters of systems are typically secured using API Gateways and OA
 In package.json:
 
 ```
-"jwt-security" : "git+https://github.kdc.capitalone.com/digital-trust/jwt-security.git"
+"jwt-security" : "^1.0.1"
 ```
 
 ## Using:
