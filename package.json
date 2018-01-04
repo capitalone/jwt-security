@@ -5,10 +5,10 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.kdc.capitalone.com:digital-trust/jwt-security.git"
+    "url": "https://github.com/capitalone/jwt-security"
   },
   "author": "Irakli Nadareishvili",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "engines": {
     "node": ">=6.2"
   },
