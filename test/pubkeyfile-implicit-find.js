@@ -22,7 +22,7 @@ let appConfig;
 
 describe('Public key file path deduced', () => {
 
-  // Note: we have to clear note cache unfortunately because the
+  // Note: we have to clear node cache unfortunately because the
   // resolution of pubKey is cached in the constructor of 
   // jwt-security and the creation of express is cached in appConfig
   // so this test wouldn't be independent of the rest of the suite – while
