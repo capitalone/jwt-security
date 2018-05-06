@@ -14,7 +14,7 @@ Public API perimeters of systems are typically secured using API Gateways and OA
 In package.json:
 
 ```
-"jwt-security" : "^1.0.1"
+"jwt-security" : "^1.1.0"
 ```
 
 ## Using:
