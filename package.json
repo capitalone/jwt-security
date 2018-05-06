@@ -1,6 +1,6 @@
 {
   "name": "jwt-security",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "JWT-based security middleware for Express",
   "main": "index.js",
   "repository": {
@@ -25,7 +25,6 @@
     "chai": "^3.5.0",
     "eslint": "^3.19.0",
     "istanbul": "^0.4.2",
-    "jshint": "^2.5.x",
     "mocha": "^3.0.0",
     "proxyquire": "^1.7.11",
     "should": "^11.0.0",
