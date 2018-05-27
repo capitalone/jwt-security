@@ -43,22 +43,18 @@ describe('getPublicKey', () => {
     // resolving default path correctly, even if file isn't read (which isn't
     // the purpose of this test - we test file being read in the next test)
     
-    return jwts.getPublicKey().then((pubKey) => {
+    try {
+      const pubKey = jwts.getPublicKey();
       assert.equal(pubKey, '', 'Default location test failed');
-    }).catch((err) => {
+    } catch (err) {
       var regex = /ENOENT: no such file or directory.+\/mocha\/bin\/config\/jwt.pem.pub/i;
       assert.equal(regex.test(err.toString()), true);
-    });
-
+    }
   });
 
   it('Successful retrival using getPublicKey(path) syntax', () => {
-
     const pathToPubKey = path.resolve(jwts.rootDir, 'test', 'support', 'jwt.pem.pub');
-
-    return jwts.getPublicKey(pathToPubKey).then((pubKey) => {
-      assert.equal(pubKey.substr(0,24), '-----BEGIN PUBLIC KEY---');
-    });
-
+    const pubKey = jwts.getPublicKey(pathToPubKey);
+    assert.equal(pubKey.substr(0,24), '-----BEGIN PUBLIC KEY---');
   });
 });

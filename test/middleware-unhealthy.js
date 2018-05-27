@@ -42,7 +42,7 @@ describe('JWT Middleware (Unhealthy) Tests', () => {
         .expect(500)
         .expect((response) => {
           var resp = response.body.description;
-          assert.equal(resp, "ACCESS DENIED: Authentication Malfunction");
+          assert.equal(resp, "ACCESS DENIED: Authentication Malfunctioned");
           process.env.NODE_JWT_SEC_PUB_KEY_PATH=""; // reset 
         })
         .end(done);
@@ -57,7 +57,7 @@ describe('JWT Middleware (Unhealthy) Tests', () => {
         .set('Authorization', `Bearer ${process.env.TEST_BEARER_TOKEN}`)
         .expect((response) => {
           var resp = response.body.description;
-          assert.equal(resp, "ACCESS DENIED: Authentication Malfunction");
+          assert.equal(resp, "ACCESS DENIED: Authentication Malfunctioned");
         })
         .expect(500).then(() => {
           request(app)
@@ -65,9 +65,6 @@ describe('JWT Middleware (Unhealthy) Tests', () => {
             .set('Authorization', `Bearer ${process.env.TEST_BEARER_TOKEN}`)
             .expect((response) => {
               var resp = response.body.description;
-              // note that second time error message is slightly different
-              // ("malfunction*ed*") allowing us subtle hint that different branch
-              // of code is catching this
               assert.equal(resp, "ACCESS DENIED: Authentication Malfunctioned");
             })
             .expect(500)

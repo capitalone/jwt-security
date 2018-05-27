@@ -17,23 +17,48 @@ const log         = require('metalogger')();
 const path        = require('path');
 const Promise     = require('bluebird');
 
-const jwts        = require('../lib/jwt-security');
-const appConfig = require("./support/appConfig.js");
+let jwts;
+let appConfig;
 
-describe('Deduced public key file path', () => {
-  // Not using the main app, because we have different config than other tests
-  let app = express();
-  app = appConfig.setup(app, true); // do not deduce public key path
+describe('Public key file path deduced', () => {
+
+  // Note: we have to clear node cache unfortunately because the
+  // resolution of pubKey is cached in the constructor of 
+  // jwt-security and the creation of express is cached in appConfig
+  // so this test wouldn't be independent of the rest of the suite – while
+  // it has to be to properly test implicit pubKey resolution.
+  beforeEach(() => {
+    Object.keys(require.cache).forEach(function(key) {
+      if (key.includes("jwt-security.js") || key.includes("appConfig.js")) {
+        delete require.cache[key];
+      }
+    });
+    jwts = require('../lib/jwt-security'); // eslint-disable-line global-require
+    appConfig = require("./support/appConfig.js"); // eslint-disable-line global-require
+  });
+
+  afterEach(() => {
+    Object.keys(require.cache).forEach(function(key) {
+      if (key.includes("jwt-security.js")) {
+        delete require.cache[key];
+      }
+    });    
+  })
 
   it('If no public key path is provided main script\'s config folder is assumed', (done) => {
+      // Not using the main app, because we have different config than other tests
+      let app = express();
+      app = appConfig.setup(app, true); // do not deduce public key path
       request(app)
       .post('/hello')
       .set('Authorization', `Bearer ${process.env.TEST_BEARER_TOKEN}`)
       .expect((response) => {
         let regex = /ACCESS DENIED: Public Key File Path Implicit:.+mocha\/bin\/config\/jwt.pem.pub/i;
         assert.match(response.body.description, regex);
+        
       })
       .expect(203)
       .end(done);
   });
+
 });
