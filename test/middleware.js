@@ -28,7 +28,7 @@ describe('JWT Middleware Tests', () => {
     beforeEach(() => {
       app = express();
       app = appConfig.setup(app);
-      this.sinonbox = sinon.sandbox.create();
+      this.sinonbox = sinon.createSandbox();
     });
 
     afterEach(() => {

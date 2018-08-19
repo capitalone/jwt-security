@@ -1,6 +1,6 @@
 {
   "name": "jwt-security",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "JWT-based security middleware for Express",
   "main": "index.js",
   "repository": {
@@ -14,22 +14,21 @@
   },
   "dependencies": {
     "bluebird": "^3.5.0",
-    "config": "*",
-    "express": "^4.11.0",
+    "config": "^2.0.1",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
-    "metalogger": "*",
-    "yaml": "*"
+    "metalogger": "^2.2.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint": "^3.19.0",
+    "chai": "^4.1.2",
+    "express": "^4.16.3",
+    "eslint": "^5.4.0",
     "istanbul": "^0.4.2",
     "mocha": "^5.2.0",
-    "proxyquire": "^1.7.11",
-    "should": "^11.0.0",
-    "sinon": "^2.1.0",
-    "supertest": "^3.0.0"
+    "proxyquire": "^2.0.1",
+    "should": "^13.2.3",
+    "sinon": "^6.1.5",
+    "supertest": "^3.1.0"
   },
   "scripts": {
     "pretest": "node_modules/eslint/bin/eslint.js index.js test/ ",
