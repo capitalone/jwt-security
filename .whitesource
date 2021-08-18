@@ -1,12 +1,16 @@
 {
   "scanSettings": {
-    "baseBranches": []
+    "baseBranches": ["master"]
   },
+  "settingsInheritedFrom": "whitesource/whitesource-config@master",
   "checkRunSettings": {
-    "vulnerableCheckRunConclusionLevel": "failure",
-    "displayMode": "diff"
+    "vulnerableCheckRunConclusionLevel": "failure"
   },
   "issueSettings": {
     "minSeverityLevel": "LOW"
+  },
+  "remediateSettings": {
+    "enableRenovate": true,
+    "extends": ["config:base"]
   }
 }
